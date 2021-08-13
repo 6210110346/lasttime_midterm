@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:midterm/objects/work.dart';
 
 class HistoryDialog extends StatefulWidget {
@@ -13,6 +14,7 @@ class _HistoryDialog extends State<HistoryDialog> {
   @override
   Widget build(BuildContext context) {
     var timeLength = widget.work.timeList.length;
+    widget.work.timeList.sort((a, b) => b.compareTo(a));
     return Dialog(
       child: Container(
           width: 250,
@@ -20,33 +22,29 @@ class _HistoryDialog extends State<HistoryDialog> {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: Center(
-                  child: Text('History'),
+                  child: Text('History ' +
+                      widget.work.title +
+                      ' ' +
+                      '(${widget.work.type})'),
                 ),
               ),
-              Container(
-                child: ListTile(
-                  title: Text(widget.work.title),
-                  trailing: Text(widget.work.type),
-                ),
-              ),
-              // Text(widget.work.timeList[0].toString())
-              // ListView.builder(
-              //     itemCount: timeLength,
-              //     itemBuilder: (context, index) {
-              //       return Container(
-              //         margin: EdgeInsets.all(5),
-              //         child: ListTile(
-              //           title: Text(''),
-              //         ),
-              //       );
-              //     }),
+              // Text(widget.work.timeList[0].toString()),
               Expanded(
-                child: ListView.builder(itemBuilder: (context, index) {
-                  return ListTile();
-                }),
-              )
+                child: ListView.builder(
+                    itemCount: timeLength,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.all(5),
+                        child: ListTile(
+                          title: Text('${index + 1}' +
+                              '. ' +
+                              '${DateFormat('dd/MM/yyyy : HH:mm:ss').format(widget.work.timeList[index])}'),
+                        ),
+                      );
+                    }),
+              ),
             ],
           )),
     );
