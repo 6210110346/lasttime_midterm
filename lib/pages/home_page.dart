@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:midterm/objects/work.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -11,13 +12,9 @@ class _MyHomePageState extends State<MyHomePage> {
   late List<Work> works = workList;
 
   late String title;
-  TypeOfWork type = TypeOfWork.homework;
 
-  static const List<TypeOfWork> initialTypes = [
-    TypeOfWork.homework,
-    TypeOfWork.carcare
-  ];
-
+  List<String> initialTypes = ['Home work', 'Car care'];
+  late String type = initialTypes.first;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,9 +56,21 @@ class _MyHomePageState extends State<MyHomePage> {
             child: ListView.builder(
                 itemCount: works.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(works[index].title),
-                    trailing: Text(works[index].time.toString()),
+                  return Column(
+                    children: [
+                      ListTile(
+                        title: Text(works[index].title),
+                        trailing: Text(
+                            DateFormat('dd/MM/yyyy').format(works[index].time)),
+                        onTap: () {},
+                      ),
+                      const Divider(
+                        height: 20,
+                        thickness: 5,
+                        indent: 20,
+                        endIndent: 20,
+                      ),
+                    ],
                   );
                 }),
           )
@@ -94,6 +103,9 @@ class _MyHomePageState extends State<MyHomePage> {
                               border: OutlineInputBorder(
                                   borderSide: BorderSide(width: 1)),
                             ),
+                            onChanged: (value) {
+                              this.title = value;
+                            },
                           ),
                         ),
                         // Container(
@@ -107,34 +119,31 @@ class _MyHomePageState extends State<MyHomePage> {
                         //     ),
                         //   ),
                         // ),
-                        DropdownButton<TypeOfWork>(
-                          items: [
-                            DropdownMenuItem(
-                              child: Text(
-                                'Home work',
-                              ),
-                              value: TypeOfWork.homework,
-                            ),
-                            DropdownMenuItem(
-                              child: Text(
-                                'Car care',
-                              ),
-                              value: TypeOfWork.carcare,
-                            )
-                          ],
+                        DropdownButton<String>(
+                          items: initialTypes
+                              .map<DropdownMenuItem<String>>((String item) {
+                            return DropdownMenuItem(
+                              child: Text(item),
+                              value: item,
+                            );
+                          }).toList(),
                           value: type,
-                          onChanged: (TypeOfWork? value) {
+                          onChanged: (String? value) {
                             setState(() {
-                              type = value!;
+                              this.type = value!;
+                              // print(type);
                             });
                           },
                         ),
                         OutlinedButton(
                             onPressed: () {
-                              works.add(Work(
-                                  type: type,
-                                  title: title,
-                                  time: DateTime.now()));
+                              setState(() {
+                                works.add(Work(
+                                    type: type,
+                                    title: title,
+                                    time: DateTime.now()));
+                              });
+                              Navigator.pop(context);
                             },
                             child: Text('Create'))
                       ],
