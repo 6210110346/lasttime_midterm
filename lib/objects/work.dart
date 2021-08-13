@@ -20,6 +20,6 @@ class Work extends HiveObject {
   }
 }
 
-var workList = [
-  Work(type: 'homework', title: 'กวาดบ้าน', time: DateTime.now())
-];
+// var workList = [
+//   Work(type: 'homework', title: 'กวาดบ้าน', time: DateTime.now())
+// ];
