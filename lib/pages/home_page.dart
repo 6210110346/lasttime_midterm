@@ -8,13 +8,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   late List<Work> works = workList;
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+
+  late String title;
+  late TypeOfWork type;
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +63,60 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () =>
-            showDialog(context: context, builder: (_) => AlertDialog()),
+        onPressed: () => showDialog(
+            context: context,
+            builder: (_) => Dialog(
+                  child: Container(
+                    height: 250,
+                    width: 215,
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 150,
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.all(10),
+                          child: Text(
+                            'Creat Work',
+                            textScaleFactor: 1.3,
+                          ),
+                        ),
+                        Container(
+                          width: 200,
+                          margin: EdgeInsets.all(10),
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              labelText: 'Title',
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(width: 1)),
+                            ),
+                          ),
+                        ),
+                        // Container(
+                        //   width: 200,
+                        //   margin: EdgeInsets.all(10),
+                        //   child: TextFormField(
+                        //     decoration: InputDecoration(
+                        //       labelText: 'Type',
+                        //       border: OutlineInputBorder(
+                        //           borderSide: BorderSide(width: 1)),
+                        //     ),
+                        //   ),
+                        // ),
+                        DropdownButton(
+                          items: [],
+                        ),
+                        OutlinedButton(
+                            onPressed: () {
+                              works.add(Work(
+                                  type: type,
+                                  title: title,
+                                  time: DateTime.now()));
+                            },
+                            child: Text('Create'))
+                      ],
+                    ),
+                  ),
+                )),
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
