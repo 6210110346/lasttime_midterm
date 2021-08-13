@@ -32,7 +32,8 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ValueListenableBuilder<Box<Work>>(
         valueListenable: Boxes.getWorks().listenable(),
         builder: (context, box, _) {
-          final works = box.values.toList().cast<Work>();
+          works = box.values.toList().cast<Work>();
+          works.sort((a, b) => b.timeList.last.compareTo(a.timeList.last));
           return Column(
             children: <Widget>[
               Row(
@@ -52,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   MaterialButton(
                     onPressed: () {
-                      sortData();
+                      filterType(filterController.text);
                     },
                     color: Colors.blue,
                     textColor: Colors.white,
@@ -76,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: ListTile(
                               title: Text(works[index].title),
                               subtitle: Text(works[index].type),
-                              trailing: Text(DateFormat('dd/MM/yyyy')
+                              trailing: Text(DateFormat('dd/MM/yyyy : HH:mm:ss')
                                   .format(works[index].timeList.last)),
                               onLongPress: () {
                                 showHistory(works[index]);
@@ -104,22 +105,15 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () => showDialog(
             context: context,
             builder: (_) => WorkDialog((value) {
-                  // setState(() {
-                  //   works.add(value);
-                  // });
                   final box = Boxes.getWorks();
                   box.add(value);
+
+                  // box.sort
                 })),
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
     );
-  }
-
-  void sortData() {
-    setState(() {
-      works.sort((a, b) => a.timeList.last.compareTo(b.timeList.last));
-    });
   }
 
   void showHistory(Work work) {
@@ -152,5 +146,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 )
               ],
             ));
+  }
+
+  void filterType(String text) {
+    works = works
+        .where((work) => work.type.toUpperCase().contains(text.toUpperCase()))
+        .toList();
   }
 }
