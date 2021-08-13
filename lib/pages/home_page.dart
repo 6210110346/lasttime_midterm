@@ -80,8 +80,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () =>
-            showDialog(context: context, builder: (_) => WorkDialog(workList)),
+        onPressed: () => showDialog(
+            context: context,
+            builder: (_) => WorkDialog((value) {
+                  setState(() {
+                    works.add(value);
+                  });
+                })),
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),

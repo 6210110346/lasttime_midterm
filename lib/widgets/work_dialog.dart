@@ -3,10 +3,11 @@ import 'package:midterm/objects/work.dart';
 
 // ignore: must_be_immutable
 class WorkDialog extends StatefulWidget {
-  List<Work> worklist;
-  WorkDialog(this.worklist);
   @override
   State<StatefulWidget> createState() => _WorkDialog();
+
+  Function callback;
+  WorkDialog(this.callback);
 }
 
 class _WorkDialog extends State<WorkDialog> {
@@ -45,15 +46,16 @@ class _WorkDialog extends State<WorkDialog> {
               ),
             ),
             buildDropdownButton(),
-            OutlinedButton(
-                onPressed: () {
-                  setState(() {
-                    widget.worklist.add(
+            Container(
+              height: 30,
+              child: OutlinedButton(
+                  onPressed: () {
+                    widget.callback(
                         Work(type: type, title: title, time: DateTime.now()));
-                  });
-                  Navigator.pop(context);
-                },
-                child: Text('Create'))
+                    Navigator.pop(context);
+                  },
+                  child: Text('Create')),
+            )
           ],
         ),
       ),

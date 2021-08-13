@@ -9,6 +9,10 @@ class Work extends HiveObject {
   @HiveField(2)
   late DateTime time;
   Work({required this.type, required this.title, required this.time});
+
+  String toString() {
+    return 'title: $title type: $type time: ${time.toString()}';
+  }
 }
 
 var workList = [
