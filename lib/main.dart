@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:midterm/pages/home_page.dart';
 import 'package:midterm/pages/second_page.dart';
 import 'package:midterm/pages/third_page.dart';
@@ -7,7 +8,7 @@ import 'package:midterm/pages/third_page.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // await Hive.initFlutter();
+  await Hive.initFlutter();
 
   runApp(MyApp());
 }
