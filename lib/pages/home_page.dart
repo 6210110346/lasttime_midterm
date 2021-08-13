@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:midterm/objects/work.dart';
+import 'package:midterm/widgets/work_dialog.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -32,13 +33,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: TextFormField(
                   decoration: InputDecoration(
                     labelText: 'Filter by type',
-                    // filled: true,
                     border:
                         OutlineInputBorder(borderSide: BorderSide(width: 1)),
                   ),
                 ),
               ),
-              // ignore: deprecated_member_use
               MaterialButton(
                 onPressed: () {},
                 color: Colors.blue,
@@ -58,11 +57,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
-                      ListTile(
-                        title: Text(works[index].title),
-                        trailing: Text(
-                            DateFormat('dd/MM/yyyy').format(works[index].time)),
-                        onTap: () {},
+                      Container(
+                        margin: EdgeInsets.all(5),
+                        child: ListTile(
+                          title: Text(works[index].title),
+                          subtitle: Text(works[index].type),
+                          trailing: Text(DateFormat('dd/MM/yyyy')
+                              .format(works[index].time)),
+                          onTap: () {},
+                        ),
                       ),
                       const Divider(
                         height: 20,
@@ -77,76 +80,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => showDialog(
-            context: context,
-            builder: (_) => Dialog(
-                  child: Container(
-                    height: 250,
-                    width: 215,
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 150,
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.all(10),
-                          child: Text(
-                            'Creat Work',
-                            textScaleFactor: 1.3,
-                          ),
-                        ),
-                        Container(
-                          width: 200,
-                          margin: EdgeInsets.all(10),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              labelText: 'Title',
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(width: 1)),
-                            ),
-                            onChanged: (value) {
-                              this.title = value;
-                            },
-                          ),
-                        ),
-                        // Container(
-                        //   width: 200,
-                        //   margin: EdgeInsets.all(10),
-                        //   child: TextFormField(
-                        //     decoration: InputDecoration(
-                        //       labelText: 'Type',
-                        //       border: OutlineInputBorder(
-                        //           borderSide: BorderSide(width: 1)),
-                        //     ),
-                        //   ),
-                        // ),
-                        DropdownButton<String>(
-                          value: type,
-                          items: initialTypes
-                              .map((item) => DropdownMenuItem(
-                                    child: Text(item),
-                                    value: item,
-                                  ))
-                              .toList(),
-                          onChanged: (value) => setState(() {
-                            this.type = value!;
-                            print(type);
-                          }),
-                        ),
-                        OutlinedButton(
-                            onPressed: () {
-                              setState(() {
-                                works.add(Work(
-                                    type: type,
-                                    title: title,
-                                    time: DateTime.now()));
-                              });
-                              Navigator.pop(context);
-                            },
-                            child: Text('Create'))
-                      ],
-                    ),
-                  ),
-                )),
+        onPressed: () =>
+            showDialog(context: context, builder: (_) => WorkDialog(workList)),
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
