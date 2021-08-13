@@ -37,16 +37,7 @@ class _LastTimePage extends State<LastTimePage> {
             ),
             MaterialButton(
               onPressed: () {
-                setState(() {
-                  works = worksForFilter
-                      .where((work) => work.type
-                          .toUpperCase()
-                          .contains(filterController.text.toUpperCase()))
-                      .toList();
-                  works.forEach((element) {
-                    print(element.title);
-                  });
-                });
+                filter(filterController.text);
               },
               color: Colors.blue,
               textColor: Colors.white,
@@ -124,5 +115,15 @@ class _LastTimePage extends State<LastTimePage> {
                 )
               ],
             ));
+  }
+
+  void filter(String text) {
+    setState(() {
+      works = worksForFilter
+          .where((work) => work.type
+              .toUpperCase()
+              .contains(filterController.text.toUpperCase()))
+          .toList();
+    });
   }
 }
