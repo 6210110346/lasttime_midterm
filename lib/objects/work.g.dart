@@ -19,7 +19,7 @@ class WorkAdapter extends TypeAdapter<Work> {
     return Work(
       type: fields[1] as String,
       title: fields[0] as String,
-      time: fields[2] as DateTime,
+      timeList: (fields[2] as List).cast<DateTime>(),
     );
   }
 
@@ -32,7 +32,7 @@ class WorkAdapter extends TypeAdapter<Work> {
       ..writeByte(1)
       ..write(obj.type)
       ..writeByte(2)
-      ..write(obj.time);
+      ..write(obj.timeList);
   }
 
   @override

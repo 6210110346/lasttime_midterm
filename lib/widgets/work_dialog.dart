@@ -57,8 +57,8 @@ class _WorkDialog extends State<WorkDialog> {
                 if (title == '') {
                   handleShowDialog();
                 } else {
-                  widget.callback(
-                      Work(type: type, title: title, time: DateTime.now()));
+                  widget.callback(Work(
+                      type: type, title: title, timeList: [DateTime.now()]));
                   Navigator.pop(context);
                 }
               },

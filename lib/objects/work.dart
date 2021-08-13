@@ -11,12 +11,12 @@ class Work extends HiveObject {
   String type;
 
   @HiveField(2)
-  late DateTime time;
+  late List<DateTime> timeList = [];
 
-  Work({required this.type, required this.title, required this.time});
+  Work({required this.type, required this.title, required this.timeList});
 
   String toString() {
-    return 'title: $title type: $type time: ${time.toString()}';
+    return 'title: $title type: $type time: ${timeList.toString()}';
   }
 }
 

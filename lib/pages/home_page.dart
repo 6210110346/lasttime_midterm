@@ -77,9 +77,12 @@ class _MyHomePageState extends State<MyHomePage> {
                               title: Text(works[index].title),
                               subtitle: Text(works[index].type),
                               trailing: Text(DateFormat('dd/MM/yyyy')
-                                  .format(works[index].time)),
-                              onTap: () {
+                                  .format(works[index].timeList.last)),
+                              onLongPress: () {
                                 showHistory(works[index]);
+                              },
+                              onTap: () {
+                                showHandleAddTime(works[index]);
                               },
                             ),
                           ),
@@ -115,11 +118,39 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void sortData() {
     setState(() {
-      works.sort((a, b) => a.time.compareTo(b.time));
+      works.sort((a, b) => a.timeList.last.compareTo(b.timeList.last));
     });
   }
 
   void showHistory(Work work) {
     showDialog(context: context, builder: (_) => HistoryDialog(work));
+  }
+
+  void showHandleAddTime(Work work) {
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              title: Text('Confirm to work'),
+              actions: [
+                Container(
+                  height: 30,
+                  margin: EdgeInsets.all(10),
+                  child: OutlinedButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text('No')),
+                ),
+                Container(
+                  height: 30,
+                  margin: EdgeInsets.all(10),
+                  child: OutlinedButton(
+                      onPressed: () {
+                        work.timeList.add(DateTime.now());
+                        work.save();
+                        Navigator.pop(context);
+                      },
+                      child: Text('Yes')),
+                )
+              ],
+            ));
   }
 }
