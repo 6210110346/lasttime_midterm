@@ -36,25 +36,14 @@ class MyApp extends StatelessWidget {
     final uri = Uri.parse(settings.name ?? '');
     print(uri.path);
     if (uri.path == '/')
-      return BottomBar(
-        index: 0,
-        body: MyHomePage(
-          title: 'My home page',
-        ),
-      );
+      return MyHomePage();
     else if (uri.path == '/2')
-      return BottomBar(
-        index: 1,
-        body: Second(
-          title: ' page',
-        ),
+      return Second(
+        title: ' page',
       );
     else if (uri.path == '/3')
-      return BottomBar(
-        index: 2,
-        body: Third(
-          title: 'page',
-        ),
+      return Third(
+        title: 'page',
       );
     else
       return Container(
@@ -63,49 +52,49 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class BottomBar extends StatefulWidget {
-  final Widget body;
-  final int index;
-  BottomBar({
-    required this.index,
-    required this.body,
-  });
-  @override
-  State<StatefulWidget> createState() => _BottomBar();
-}
+// class BottomBar extends StatefulWidget {
+//   final Widget body;
+//   final int index;
+//   BottomBar({
+//     required this.index,
+//     required this.body,
+//   });
+//   @override
+//   State<StatefulWidget> createState() => _BottomBar();
+// }
 
-class _BottomBar extends State<BottomBar> {
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: widget.body,
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: onTabTapped,
-        currentIndex: widget.index,
-        items: [
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.home),
-            title: new Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.mail),
-            title: new Text('Messages'),
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person), title: Text('Profile'))
-        ],
-      ),
-    );
-  }
+// class _BottomBar extends State<BottomBar> {
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: widget.body,
+//       bottomNavigationBar: BottomNavigationBar(
+//         onTap: onTabTapped,
+//         currentIndex: widget.index,
+//         items: [
+//           BottomNavigationBarItem(
+//             icon: new Icon(Icons.home),
+//             title: new Text('Home'),
+//           ),
+//           BottomNavigationBarItem(
+//             icon: new Icon(Icons.mail),
+//             title: new Text('Messages'),
+//           ),
+//           BottomNavigationBarItem(
+//               icon: Icon(Icons.person), title: Text('Profile'))
+//         ],
+//       ),
+//     );
+//   }
 
-  void onTabTapped(int index) {
-    if (index == 0) {
-      Navigator.pushReplacementNamed(context, '/');
-    }
-    if (index == 1) {
-      Navigator.pushReplacementNamed(context, '/2');
-    }
-    if (index == 2) {
-      Navigator.pushReplacementNamed(context, '/3');
-    }
-  }
-}
+//   void onTabTapped(int index) {
+//     if (index == 0) {
+//       Navigator.pushReplacementNamed(context, '/');
+//     }
+//     if (index == 1) {
+//       Navigator.pushReplacementNamed(context, '/2');
+//     }
+//     if (index == 2) {
+//       Navigator.pushReplacementNamed(context, '/3');
+//     }
+//   }
+// }

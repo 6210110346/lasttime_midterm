@@ -12,3 +12,7 @@ class Work extends HiveObject {
 }
 
 enum TypeOfWork { homework, carcare }
+
+var workList = [
+  Work(type: TypeOfWork.homework, title: 'กวาดบ้าน', time: DateTime.now())
+];
