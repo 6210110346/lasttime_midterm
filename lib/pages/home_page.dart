@@ -9,7 +9,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  late List<Work> works = [];
+  late List<Work> works = workList;
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -23,7 +23,6 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('Last time'),
       ),
       body: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -54,15 +53,21 @@ class _MyHomePageState extends State<MyHomePage> {
               )
             ],
           ),
-          ListView.builder(
-              itemCount: works.length,
-              itemBuilder: (context, index) {
-                return Text('bank');
-              })
+          Expanded(
+            child: ListView.builder(
+                itemCount: works.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(works[index].title),
+                    trailing: Text(works[index].time.toString()),
+                  );
+                }),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () =>
+            showDialog(context: context, builder: (_) => AlertDialog()),
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
