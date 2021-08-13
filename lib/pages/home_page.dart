@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:midterm/objects/work.dart';
 import 'package:midterm/widgets/work_dialog.dart';
@@ -12,10 +13,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late List<Work> works = workList;
 
-  late String title;
+  @override
+  void dispose() {
+    Hive.box('works').close();
+    super.dispose();
+  }
 
-  static final List<String> initialTypes = ['Home work', 'Car care'];
-  String type = initialTypes.first;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

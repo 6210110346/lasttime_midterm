@@ -17,10 +17,8 @@ class _WorkDialog extends State<WorkDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      child: Container(
-        height: 250,
-        width: 215,
+    return AlertDialog(
+      title: Container(
         child: Column(
           children: [
             Container(
@@ -43,22 +41,30 @@ class _WorkDialog extends State<WorkDialog> {
                 onChanged: (value) {
                   title = value;
                 },
+                autofocus: true,
               ),
             ),
             buildDropdownButton(),
-            Container(
-              height: 30,
-              child: OutlinedButton(
-                  onPressed: () {
-                    widget.callback(
-                        Work(type: type, title: title, time: DateTime.now()));
-                    Navigator.pop(context);
-                  },
-                  child: Text('Create')),
-            )
           ],
         ),
       ),
+      actions: [
+        Container(
+          height: 30,
+          margin: EdgeInsets.all(10),
+          child: OutlinedButton(
+              onPressed: () {
+                if (title == '') {
+                  handleShowDialog();
+                } else {
+                  widget.callback(
+                      Work(type: type, title: title, time: DateTime.now()));
+                  Navigator.pop(context);
+                }
+              },
+              child: Text('Create')),
+        )
+      ],
     );
   }
 
@@ -75,4 +81,12 @@ class _WorkDialog extends State<WorkDialog> {
           print(type);
         }),
       );
+
+  handleShowDialog() {
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              title: Text('Please fill title'),
+            ));
+  }
 }
