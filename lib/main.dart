@@ -35,7 +35,6 @@ class MyApp extends StatelessWidget {
 
   Widget _getPageWidget(RouteSettings settings) {
     final uri = Uri.parse(settings.name ?? '');
-    print(uri.path);
     if (uri.path == '/')
       return MyHomePage();
     // else if (uri.path == '/2')

@@ -78,7 +78,6 @@ class _WorkDialog extends State<WorkDialog> {
             .toList(),
         onChanged: (value) => setState(() {
           type = value!;
-          print(type);
         }),
       );
 
