@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:midterm/pages/home_page.dart';
-import 'package:midterm/pages/second_page.dart';
-import 'package:midterm/pages/third_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,14 +35,14 @@ class MyApp extends StatelessWidget {
     print(uri.path);
     if (uri.path == '/')
       return MyHomePage();
-    else if (uri.path == '/2')
-      return Second(
-        title: ' page',
-      );
-    else if (uri.path == '/3')
-      return Third(
-        title: 'page',
-      );
+    // else if (uri.path == '/2')
+    //   return Second(
+    //     title: ' page',
+    //   );
+    // else if (uri.path == '/3')
+    //   return Third(
+    //     title: 'page',
+    //   );
     else
       return Container(
         child: Text('URI is error !!!'),

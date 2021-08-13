@@ -5,14 +5,12 @@ class Work extends HiveObject {
   @HiveField(0)
   String title;
   @HiveField(1)
-  TypeOfWork type;
+  String type;
   @HiveField(2)
   late DateTime time;
   Work({required this.type, required this.title, required this.time});
 }
 
-enum TypeOfWork { homework, carcare }
-
 var workList = [
-  Work(type: TypeOfWork.homework, title: 'กวาดบ้าน', time: DateTime.now())
+  Work(type: 'homework', title: 'กวาดบ้าน', time: DateTime.now())
 ];

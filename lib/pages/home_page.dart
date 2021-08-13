@@ -13,8 +13,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   late String title;
 
-  List<String> initialTypes = ['Home work', 'Car care'];
-  late String type = initialTypes.first;
+  static final List<String> initialTypes = ['Home work', 'Car care'];
+  String type = initialTypes.first;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,20 +120,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         //   ),
                         // ),
                         DropdownButton<String>(
-                          items: initialTypes
-                              .map<DropdownMenuItem<String>>((String item) {
-                            return DropdownMenuItem(
-                              child: Text(item),
-                              value: item,
-                            );
-                          }).toList(),
                           value: type,
-                          onChanged: (String? value) {
-                            setState(() {
-                              this.type = value!;
-                              // print(type);
-                            });
-                          },
+                          items: initialTypes
+                              .map((item) => DropdownMenuItem(
+                                    child: Text(item),
+                                    value: item,
+                                  ))
+                              .toList(),
+                          onChanged: (value) => setState(() {
+                            this.type = value!;
+                            print(type);
+                          }),
                         ),
                         OutlinedButton(
                             onPressed: () {
