@@ -11,7 +11,12 @@ class _MyHomePageState extends State<MyHomePage> {
   late List<Work> works = workList;
 
   late String title;
-  late TypeOfWork type;
+  TypeOfWork type = TypeOfWork.homework;
+
+  static const List<TypeOfWork> initialTypes = [
+    TypeOfWork.homework,
+    TypeOfWork.carcare
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -102,8 +107,27 @@ class _MyHomePageState extends State<MyHomePage> {
                         //     ),
                         //   ),
                         // ),
-                        DropdownButton(
-                          items: [],
+                        DropdownButton<TypeOfWork>(
+                          items: [
+                            DropdownMenuItem(
+                              child: Text(
+                                'Home work',
+                              ),
+                              value: TypeOfWork.homework,
+                            ),
+                            DropdownMenuItem(
+                              child: Text(
+                                'Car care',
+                              ),
+                              value: TypeOfWork.carcare,
+                            )
+                          ],
+                          value: type,
+                          onChanged: (TypeOfWork? value) {
+                            setState(() {
+                              type = value!;
+                            });
+                          },
                         ),
                         OutlinedButton(
                             onPressed: () {
